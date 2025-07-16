@@ -35,20 +35,19 @@ def get_reduced_correlated_features(df, threshold=0.8):
                     already_in_group.add(col1)
                     already_in_group.add(col2)
 
-    all_features = set(df.select_dtypes(include='number').columns)
+    all_features = set(df.select_dtypes(include="number").columns)
     kept_features = sorted(list(all_features - to_drop))
     dropped_features = sorted(list(to_drop))
 
     return kept_features, dropped_features, correlated_pairs
 
 
-
 def calculate_vif(df):
-    df = df.select_dtypes(include='number')
+    df = df.select_dtypes(include="number")
     X = add_constant(df)
     vif_data = pd.DataFrame()
     vif_data["feature"] = df.columns
-    vif_data["VIF"] = [variance_inflation_factor(X.values, i + 1) for i in range(len(df.columns))]
+    vif_data["VIF"] = [
+        variance_inflation_factor(X.values, i + 1) for i in range(len(df.columns))
+    ]
     return vif_data.sort_values(by="VIF", ascending=False)
-
-
