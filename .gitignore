@@ -165,3 +165,4 @@ output/
 *.sh
 *.txt
 *.out
+temp/
